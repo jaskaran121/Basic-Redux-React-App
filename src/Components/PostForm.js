@@ -8,7 +8,7 @@ class PostForm extends Component {
   render() {
     return (
       <div>
-        <h>Add Post</h>
+        <h>Add Posts</h>
       </div>
     );
   }
