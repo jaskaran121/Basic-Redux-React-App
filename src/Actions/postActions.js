@@ -6,3 +6,9 @@ export const fetchPosts = () => dispatch => {
     .get("https://jsonplaceholder.typicode.com/posts")
     .then(response => dispatch({ type: FETCH_POSTS, payload: response.data }));
 };
+
+export const createPost = postData => dispatch => {
+  axios
+    .post("https://jsonplaceholder.typicode.com/posts", postData)
+    .then(response => dispatch({ type: NEW_POST, payload: response.data }));
+};
