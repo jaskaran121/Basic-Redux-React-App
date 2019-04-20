@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import axios from "axios";
 class PostForm extends Component {
   constructor(props) {
     super(props);
@@ -12,38 +12,41 @@ class PostForm extends Component {
     this.setState({ data: tempData });
   };
 
-  handleSubmit = () => {
-    console.log(this.state.data);
+  handleSubmit = e => {
+    e.preventDefault();
+
+    const postData = {
+      title: this.state.data.title,
+      body: this.state.data.body
+    };
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts", postData)
+      .then(response => console.log(response));
   };
 
   render() {
     return (
       <div>
-        <h3>Add Posts</h3>
-        <form>
-          <div>
-            <label>Title:</label>
-            <br />
+        <h1>Post</h1>
+        <form style={{ padding: "20px" }} onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="Title">Title </label>
             <input
               type="text"
+              className="form-control"
               name="title"
-              value={this.state.title}
               onChange={this.handleChange}
             />
           </div>
-          <div>
-            <label>Body:</label>
-            <br />
+          <div className="form-group">
+            <label htmlFor="Body">Body </label>
             <textarea
+              className="form-control"
               name="body"
-              value={this.state.body}
               onChange={this.handleChange}
             />
           </div>
-          <br />
-          <button type="submit" onSubmit={this.handleSubmit}>
-            Submit
-          </button>
+          <button className="btn btn-primary">Submit</button>
         </form>
       </div>
     );
