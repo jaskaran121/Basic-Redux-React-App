@@ -5,7 +5,8 @@ import { fetchPosts } from "../Actions/postActions";
 
 class Posts extends Component {
   componentWillMount() {
-    this.props.fetchPosts();
+    const {dispatch} = this.props;
+    dispatch({type:"Fetch_Posts_Action"});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,12 +37,21 @@ Posts.propTypes = {
   newPost: PropTypes.object
 };
 
-const mapStateToProps = state => ({
-  posts: state.posts.items,
-  newPost: state.posts.item
-});
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts.items,
+    newPost: state.posts.item
+  }
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    fetchPosts
+  };
+}
 
 export default connect(
   mapStateToProps,
-  { fetchPosts }
+  mapDispatchToProps,
 )(Posts);
